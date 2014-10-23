@@ -1,10 +1,17 @@
 class RequestsController < ApplicationController
-    layout 'request'
     before_action :set_request, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!, only: [:index, :add]
 
     # GET /requests
     def index
         @requests = Request.all
+      if params[:status]
+        if params[:status] != 'all'
+          @requests = @requests.where(status: params[:status])
+        end
+      else
+        @requests = @requests.to_add
+      end
     end
 
     # GET /requests/1
@@ -18,6 +25,12 @@ class RequestsController < ApplicationController
 
     # GET /requests/1/edit
     def edit
+    end
+
+    def add
+      @request = Request.find(params[:request_id])
+      @request.update_attribute :status, 'added'
+      redirect_to admin_path
     end
 
     # POST /requests

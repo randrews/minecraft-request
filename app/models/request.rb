@@ -9,4 +9,6 @@ class Request < ActiveRecord::Base
             ''
         end
     end
+
+    scope :to_add, -> { where(status: nil) }
 end
