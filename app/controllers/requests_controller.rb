@@ -33,6 +33,13 @@ class RequestsController < ApplicationController
       redirect_to admin_path
     end
 
+    def lookup
+      if params[:reddit_username].present? && params[:minecraft_username].present?
+        @request = Request.where(reddit_username: params[:reddit_username],
+                                 minecraft_username: params[:minecraft_username]).first
+      end
+    end
+
     # POST /requests
     def create
         @request = Request.new(request_params)

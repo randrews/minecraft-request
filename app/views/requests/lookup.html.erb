@@ -1,0 +1,21 @@
+<center>
+  <% if @request.blank? %>
+    <h1>Sorry, can't find that request</h1>
+    <p>Maybe you mistyped the name? <%= link_to "Try again", lookup_requests_path %></p>
+  <% elsif @request.status.blank? %>
+    <h1>Sorry, you haven't been added yet</h1>
+    <p>Be patient, we'll get on it</p>
+  <% elsif @request.status == 'added' %>
+    <h1>Yep, you're in!</h1>
+    <p>Connect to <code>rbn.mcpro.co</code> and start building!</p>
+  <% else %>
+    <h1>Something strange is going on with your request</h1>
+    <p>We'll probably contact you shortly, if we haven't.</p>
+  <% end %>
+</center>
+
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+      <%= link_to "Back", '/' %>
+    </div>
+</div>
